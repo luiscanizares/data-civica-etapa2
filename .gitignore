@@ -3,3 +3,20 @@
 /imagenes
 **/.DS_Store
 .DS_Store
+
+# VS Code / Windows
+.vscode/
+Thumbs.db
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# Outputs grandes de esta prueba (NO subir JSON por estado)
+salida/data_civica_etapa2/estados/
+salida/circunstancias/
+
+# (Opcional) si se generan otros temporales
+*.log
+

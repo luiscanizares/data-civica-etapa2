@@ -1,0 +1,321 @@
+entidad_id,entidad_nombre,sexo,grupo_edad,total
+1,Aguascalientes,Hombres,Adolescentes (10-19),117
+1,Aguascalientes,Hombres,Adultos (36-59),172
+1,Aguascalientes,Hombres,Adultos mayores (60+),47
+1,Aguascalientes,Hombres,Infancias (0-9),27
+1,Aguascalientes,Hombres,Jóvenes (20-35),218
+1,Aguascalientes,Mujeres,Adolescentes (10-19),216
+1,Aguascalientes,Mujeres,Adultos (36-59),47
+1,Aguascalientes,Mujeres,Adultos mayores (60+),13
+1,Aguascalientes,Mujeres,Infancias (0-9),17
+1,Aguascalientes,Mujeres,Jóvenes (20-35),107
+2,Baja California,Hombres,Adolescentes (10-19),79
+2,Baja California,Hombres,Adultos (36-59),229
+2,Baja California,Hombres,Adultos mayores (60+),28
+2,Baja California,Hombres,Infancias (0-9),8
+2,Baja California,Hombres,Jóvenes (20-35),322
+2,Baja California,Mujeres,Adolescentes (10-19),61
+2,Baja California,Mujeres,Adultos (36-59),45
+2,Baja California,Mujeres,Adultos mayores (60+),3
+2,Baja California,Mujeres,Infancias (0-9),7
+2,Baja California,Mujeres,Jóvenes (20-35),97
+3,Baja California Sur,Hombres,Adolescentes (10-19),63
+3,Baja California Sur,Hombres,Adultos (36-59),93
+3,Baja California Sur,Hombres,Adultos mayores (60+),23
+3,Baja California Sur,Hombres,Infancias (0-9),7
+3,Baja California Sur,Hombres,Jóvenes (20-35),122
+3,Baja California Sur,Mujeres,Adolescentes (10-19),127
+3,Baja California Sur,Mujeres,Adultos (36-59),20
+3,Baja California Sur,Mujeres,Adultos mayores (60+),2
+3,Baja California Sur,Mujeres,Infancias (0-9),5
+3,Baja California Sur,Mujeres,Jóvenes (20-35),57
+4,Campeche,Hombres,Adolescentes (10-19),19
+4,Campeche,Hombres,Adultos (36-59),21
+4,Campeche,Hombres,Adultos mayores (60+),5
+4,Campeche,Hombres,Infancias (0-9),3
+4,Campeche,Hombres,Jóvenes (20-35),35
+4,Campeche,Mujeres,Adolescentes (10-19),51
+4,Campeche,Mujeres,Adultos (36-59),8
+4,Campeche,Mujeres,Adultos mayores (60+),1
+4,Campeche,Mujeres,Infancias (0-9),2
+4,Campeche,Mujeres,Jóvenes (20-35),15
+5,Coahuila,Hombres,Adolescentes (10-19),5
+5,Coahuila,Hombres,Adultos (36-59),41
+5,Coahuila,Hombres,Adultos mayores (60+),5
+5,Coahuila,Hombres,Infancias (0-9),1
+5,Coahuila,Hombres,Jóvenes (20-35),56
+5,Coahuila,Mujeres,Adolescentes (10-19),8
+5,Coahuila,Mujeres,Adultos (36-59),9
+5,Coahuila,Mujeres,Adultos mayores (60+),1
+5,Coahuila,Mujeres,Infancias (0-9),1
+5,Coahuila,Mujeres,Jóvenes (20-35),24
+6,Colima,Hombres,Adolescentes (10-19),7
+6,Colima,Hombres,Adultos (36-59),11
+6,Colima,Hombres,Adultos mayores (60+),0
+6,Colima,Hombres,Infancias (0-9),1
+6,Colima,Hombres,Jóvenes (20-35),19
+6,Colima,Mujeres,Adolescentes (10-19),1
+6,Colima,Mujeres,Adultos (36-59),2
+6,Colima,Mujeres,Adultos mayores (60+),0
+6,Colima,Mujeres,Infancias (0-9),2
+6,Colima,Mujeres,Jóvenes (20-35),6
+7,Chiapas,Hombres,Adolescentes (10-19),147
+7,Chiapas,Hombres,Adultos (36-59),258
+7,Chiapas,Hombres,Adultos mayores (60+),57
+7,Chiapas,Hombres,Infancias (0-9),63
+7,Chiapas,Hombres,Jóvenes (20-35),318
+7,Chiapas,Mujeres,Adolescentes (10-19),283
+7,Chiapas,Mujeres,Adultos (36-59),50
+7,Chiapas,Mujeres,Adultos mayores (60+),11
+7,Chiapas,Mujeres,Infancias (0-9),50
+7,Chiapas,Mujeres,Jóvenes (20-35),123
+8,Chihuahua,Hombres,Adolescentes (10-19),31
+8,Chihuahua,Hombres,Adultos (36-59),55
+8,Chihuahua,Hombres,Adultos mayores (60+),6
+8,Chihuahua,Hombres,Infancias (0-9),6
+8,Chihuahua,Hombres,Jóvenes (20-35),80
+8,Chihuahua,Mujeres,Adolescentes (10-19),31
+8,Chihuahua,Mujeres,Adultos (36-59),10
+8,Chihuahua,Mujeres,Adultos mayores (60+),2
+8,Chihuahua,Mujeres,Infancias (0-9),0
+8,Chihuahua,Mujeres,Jóvenes (20-35),29
+9,Ciudad De Mexico,Hombres,Adolescentes (10-19),332
+9,Ciudad De Mexico,Hombres,Adultos (36-59),431
+9,Ciudad De Mexico,Hombres,Adultos mayores (60+),198
+9,Ciudad De Mexico,Hombres,Infancias (0-9),67
+9,Ciudad De Mexico,Hombres,Jóvenes (20-35),445
+9,Ciudad De Mexico,Mujeres,Adolescentes (10-19),675
+9,Ciudad De Mexico,Mujeres,Adultos (36-59),145
+9,Ciudad De Mexico,Mujeres,Adultos mayores (60+),87
+9,Ciudad De Mexico,Mujeres,Infancias (0-9),73
+9,Ciudad De Mexico,Mujeres,Jóvenes (20-35),219
+10,Durango,Hombres,Adolescentes (10-19),112
+10,Durango,Hombres,Adultos (36-59),136
+10,Durango,Hombres,Adultos mayores (60+),34
+10,Durango,Hombres,Infancias (0-9),9
+10,Durango,Hombres,Jóvenes (20-35),182
+10,Durango,Mujeres,Adolescentes (10-19),169
+10,Durango,Mujeres,Adultos (36-59),35
+10,Durango,Mujeres,Adultos mayores (60+),7
+10,Durango,Mujeres,Infancias (0-9),6
+10,Durango,Mujeres,Jóvenes (20-35),73
+11,Guanajuato,Hombres,Adolescentes (10-19),111
+11,Guanajuato,Hombres,Adultos (36-59),222
+11,Guanajuato,Hombres,Adultos mayores (60+),36
+11,Guanajuato,Hombres,Infancias (0-9),21
+11,Guanajuato,Hombres,Jóvenes (20-35),406
+11,Guanajuato,Mujeres,Adolescentes (10-19),193
+11,Guanajuato,Mujeres,Adultos (36-59),75
+11,Guanajuato,Mujeres,Adultos mayores (60+),11
+11,Guanajuato,Mujeres,Infancias (0-9),18
+11,Guanajuato,Mujeres,Jóvenes (20-35),144
+12,Guerrero,Hombres,Adolescentes (10-19),27
+12,Guerrero,Hombres,Adultos (36-59),89
+12,Guerrero,Hombres,Adultos mayores (60+),21
+12,Guerrero,Hombres,Infancias (0-9),2
+12,Guerrero,Hombres,Jóvenes (20-35),138
+12,Guerrero,Mujeres,Adolescentes (10-19),38
+12,Guerrero,Mujeres,Adultos (36-59),16
+12,Guerrero,Mujeres,Adultos mayores (60+),1
+12,Guerrero,Mujeres,Infancias (0-9),4
+12,Guerrero,Mujeres,Jóvenes (20-35),42
+13,Hidalgo,Hombres,Adolescentes (10-19),133
+13,Hidalgo,Hombres,Adultos (36-59),153
+13,Hidalgo,Hombres,Adultos mayores (60+),39
+13,Hidalgo,Hombres,Infancias (0-9),36
+13,Hidalgo,Hombres,Jóvenes (20-35),210
+13,Hidalgo,Mujeres,Adolescentes (10-19),266
+13,Hidalgo,Mujeres,Adultos (36-59),58
+13,Hidalgo,Mujeres,Adultos mayores (60+),16
+13,Hidalgo,Mujeres,Infancias (0-9),32
+13,Hidalgo,Mujeres,Jóvenes (20-35),143
+14,Jalisco,Hombres,Adolescentes (10-19),26
+14,Jalisco,Hombres,Adultos (36-59),43
+14,Jalisco,Hombres,Adultos mayores (60+),11
+14,Jalisco,Hombres,Infancias (0-9),1
+14,Jalisco,Hombres,Jóvenes (20-35),98
+14,Jalisco,Mujeres,Adolescentes (10-19),6
+14,Jalisco,Mujeres,Adultos (36-59),7
+14,Jalisco,Mujeres,Adultos mayores (60+),0
+14,Jalisco,Mujeres,Infancias (0-9),0
+14,Jalisco,Mujeres,Jóvenes (20-35),14
+15,Estado De Mexico,Hombres,Adolescentes (10-19),755
+15,Estado De Mexico,Hombres,Adultos (36-59),826
+15,Estado De Mexico,Hombres,Adultos mayores (60+),312
+15,Estado De Mexico,Hombres,Infancias (0-9),336
+15,Estado De Mexico,Hombres,Jóvenes (20-35),1164
+15,Estado De Mexico,Mujeres,Adolescentes (10-19),1498
+15,Estado De Mexico,Mujeres,Adultos (36-59),279
+15,Estado De Mexico,Mujeres,Adultos mayores (60+),102
+15,Estado De Mexico,Mujeres,Infancias (0-9),337
+15,Estado De Mexico,Mujeres,Jóvenes (20-35),618
+16,Michoacan,Hombres,Adolescentes (10-19),133
+16,Michoacan,Hombres,Adultos (36-59),363
+16,Michoacan,Hombres,Adultos mayores (60+),52
+16,Michoacan,Hombres,Infancias (0-9),20
+16,Michoacan,Hombres,Jóvenes (20-35),524
+16,Michoacan,Mujeres,Adolescentes (10-19),126
+16,Michoacan,Mujeres,Adultos (36-59),62
+16,Michoacan,Mujeres,Adultos mayores (60+),11
+16,Michoacan,Mujeres,Infancias (0-9),28
+16,Michoacan,Mujeres,Jóvenes (20-35),110
+17,Morelos,Hombres,Adolescentes (10-19),84
+17,Morelos,Hombres,Adultos (36-59),107
+17,Morelos,Hombres,Adultos mayores (60+),28
+17,Morelos,Hombres,Infancias (0-9),39
+17,Morelos,Hombres,Jóvenes (20-35),152
+17,Morelos,Mujeres,Adolescentes (10-19),100
+17,Morelos,Mujeres,Adultos (36-59),19
+17,Morelos,Mujeres,Adultos mayores (60+),10
+17,Morelos,Mujeres,Infancias (0-9),28
+17,Morelos,Mujeres,Jóvenes (20-35),72
+18,Nayarit,Hombres,Adolescentes (10-19),75
+18,Nayarit,Hombres,Adultos (36-59),96
+18,Nayarit,Hombres,Adultos mayores (60+),27
+18,Nayarit,Hombres,Infancias (0-9),12
+18,Nayarit,Hombres,Jóvenes (20-35),146
+18,Nayarit,Mujeres,Adolescentes (10-19),126
+18,Nayarit,Mujeres,Adultos (36-59),20
+18,Nayarit,Mujeres,Adultos mayores (60+),3
+18,Nayarit,Mujeres,Infancias (0-9),5
+18,Nayarit,Mujeres,Jóvenes (20-35),47
+19,Nuevo Leon,Hombres,Adolescentes (10-19),346
+19,Nuevo Leon,Hombres,Adultos (36-59),525
+19,Nuevo Leon,Hombres,Adultos mayores (60+),149
+19,Nuevo Leon,Hombres,Infancias (0-9),54
+19,Nuevo Leon,Hombres,Jóvenes (20-35),737
+19,Nuevo Leon,Mujeres,Adolescentes (10-19),659
+19,Nuevo Leon,Mujeres,Adultos (36-59),146
+19,Nuevo Leon,Mujeres,Adultos mayores (60+),37
+19,Nuevo Leon,Mujeres,Infancias (0-9),61
+19,Nuevo Leon,Mujeres,Jóvenes (20-35),308
+20,Oaxaca,Hombres,Adolescentes (10-19),9
+20,Oaxaca,Hombres,Adultos (36-59),20
+20,Oaxaca,Hombres,Adultos mayores (60+),5
+20,Oaxaca,Hombres,Infancias (0-9),1
+20,Oaxaca,Hombres,Jóvenes (20-35),28
+20,Oaxaca,Mujeres,Adolescentes (10-19),9
+20,Oaxaca,Mujeres,Adultos (36-59),7
+20,Oaxaca,Mujeres,Adultos mayores (60+),0
+20,Oaxaca,Mujeres,Infancias (0-9),1
+20,Oaxaca,Mujeres,Jóvenes (20-35),7
+21,Puebla,Hombres,Adolescentes (10-19),244
+21,Puebla,Hombres,Adultos (36-59),289
+21,Puebla,Hombres,Adultos mayores (60+),116
+21,Puebla,Hombres,Infancias (0-9),108
+21,Puebla,Hombres,Jóvenes (20-35),433
+21,Puebla,Mujeres,Adolescentes (10-19),570
+21,Puebla,Mujeres,Adultos (36-59),93
+21,Puebla,Mujeres,Adultos mayores (60+),38
+21,Puebla,Mujeres,Infancias (0-9),125
+21,Puebla,Mujeres,Jóvenes (20-35),282
+22,Queretaro,Hombres,Adolescentes (10-19),44
+22,Queretaro,Hombres,Adultos (36-59),60
+22,Queretaro,Hombres,Adultos mayores (60+),21
+22,Queretaro,Hombres,Infancias (0-9),5
+22,Queretaro,Hombres,Jóvenes (20-35),94
+22,Queretaro,Mujeres,Adolescentes (10-19),52
+22,Queretaro,Mujeres,Adultos (36-59),21
+22,Queretaro,Mujeres,Adultos mayores (60+),3
+22,Queretaro,Mujeres,Infancias (0-9),7
+22,Queretaro,Mujeres,Jóvenes (20-35),37
+23,Quintana Roo,Hombres,Adolescentes (10-19),99
+23,Quintana Roo,Hombres,Adultos (36-59),150
+23,Quintana Roo,Hombres,Adultos mayores (60+),32
+23,Quintana Roo,Hombres,Infancias (0-9),7
+23,Quintana Roo,Hombres,Jóvenes (20-35),225
+23,Quintana Roo,Mujeres,Adolescentes (10-19),205
+23,Quintana Roo,Mujeres,Adultos (36-59),32
+23,Quintana Roo,Mujeres,Adultos mayores (60+),8
+23,Quintana Roo,Mujeres,Infancias (0-9),7
+23,Quintana Roo,Mujeres,Jóvenes (20-35),64
+24,San Luis Potosi,Hombres,Adolescentes (10-19),71
+24,San Luis Potosi,Hombres,Adultos (36-59),87
+24,San Luis Potosi,Hombres,Adultos mayores (60+),46
+24,San Luis Potosi,Hombres,Infancias (0-9),17
+24,San Luis Potosi,Hombres,Jóvenes (20-35),150
+24,San Luis Potosi,Mujeres,Adolescentes (10-19),126
+24,San Luis Potosi,Mujeres,Adultos (36-59),27
+24,San Luis Potosi,Mujeres,Adultos mayores (60+),6
+24,San Luis Potosi,Mujeres,Infancias (0-9),17
+24,San Luis Potosi,Mujeres,Jóvenes (20-35),50
+25,Sinaloa,Hombres,Adolescentes (10-19),124
+25,Sinaloa,Hombres,Adultos (36-59),392
+25,Sinaloa,Hombres,Adultos mayores (60+),51
+25,Sinaloa,Hombres,Infancias (0-9),9
+25,Sinaloa,Hombres,Jóvenes (20-35),634
+25,Sinaloa,Mujeres,Adolescentes (10-19),75
+25,Sinaloa,Mujeres,Adultos (36-59),46
+25,Sinaloa,Mujeres,Adultos mayores (60+),6
+25,Sinaloa,Mujeres,Infancias (0-9),1
+25,Sinaloa,Mujeres,Jóvenes (20-35),68
+26,Sonora,Hombres,Adolescentes (10-19),210
+26,Sonora,Hombres,Adultos (36-59),381
+26,Sonora,Hombres,Adultos mayores (60+),59
+26,Sonora,Hombres,Infancias (0-9),20
+26,Sonora,Hombres,Jóvenes (20-35),577
+26,Sonora,Mujeres,Adolescentes (10-19),148
+26,Sonora,Mujeres,Adultos (36-59),61
+26,Sonora,Mujeres,Adultos mayores (60+),10
+26,Sonora,Mujeres,Infancias (0-9),10
+26,Sonora,Mujeres,Jóvenes (20-35),98
+27,Tabasco,Hombres,Adolescentes (10-19),15
+27,Tabasco,Hombres,Adultos (36-59),44
+27,Tabasco,Hombres,Adultos mayores (60+),12
+27,Tabasco,Hombres,Infancias (0-9),3
+27,Tabasco,Hombres,Jóvenes (20-35),67
+27,Tabasco,Mujeres,Adolescentes (10-19),18
+27,Tabasco,Mujeres,Adultos (36-59),4
+27,Tabasco,Mujeres,Adultos mayores (60+),0
+27,Tabasco,Mujeres,Infancias (0-9),2
+27,Tabasco,Mujeres,Jóvenes (20-35),8
+28,Tamaulipas,Hombres,Adolescentes (10-19),140
+28,Tamaulipas,Hombres,Adultos (36-59),328
+28,Tamaulipas,Hombres,Adultos mayores (60+),66
+28,Tamaulipas,Hombres,Infancias (0-9),7
+28,Tamaulipas,Hombres,Jóvenes (20-35),441
+28,Tamaulipas,Mujeres,Adolescentes (10-19),227
+28,Tamaulipas,Mujeres,Adultos (36-59),44
+28,Tamaulipas,Mujeres,Adultos mayores (60+),12
+28,Tamaulipas,Mujeres,Infancias (0-9),14
+28,Tamaulipas,Mujeres,Jóvenes (20-35),101
+29,Tlaxcala,Hombres,Adolescentes (10-19),63
+29,Tlaxcala,Hombres,Adultos (36-59),8
+29,Tlaxcala,Hombres,Adultos mayores (60+),8
+29,Tlaxcala,Hombres,Infancias (0-9),6
+29,Tlaxcala,Hombres,Jóvenes (20-35),23
+29,Tlaxcala,Mujeres,Adolescentes (10-19),30
+29,Tlaxcala,Mujeres,Adultos (36-59),18
+29,Tlaxcala,Mujeres,Adultos mayores (60+),11
+29,Tlaxcala,Mujeres,Infancias (0-9),5
+29,Tlaxcala,Mujeres,Jóvenes (20-35),35
+30,Veracruz,Hombres,Adolescentes (10-19),121
+30,Veracruz,Hombres,Adultos (36-59),213
+30,Veracruz,Hombres,Adultos mayores (60+),47
+30,Veracruz,Hombres,Infancias (0-9),17
+30,Veracruz,Hombres,Jóvenes (20-35),302
+30,Veracruz,Mujeres,Adolescentes (10-19),263
+30,Veracruz,Mujeres,Adultos (36-59),73
+30,Veracruz,Mujeres,Adultos mayores (60+),14
+30,Veracruz,Mujeres,Infancias (0-9),26
+30,Veracruz,Mujeres,Jóvenes (20-35),142
+31,Yucatan,Hombres,Adolescentes (10-19),1
+31,Yucatan,Hombres,Adultos (36-59),7
+31,Yucatan,Hombres,Adultos mayores (60+),6
+31,Yucatan,Hombres,Infancias (0-9),3
+31,Yucatan,Hombres,Jóvenes (20-35),8
+31,Yucatan,Mujeres,Adolescentes (10-19),3
+31,Yucatan,Mujeres,Adultos (36-59),1
+31,Yucatan,Mujeres,Adultos mayores (60+),0
+31,Yucatan,Mujeres,Infancias (0-9),0
+31,Yucatan,Mujeres,Jóvenes (20-35),1
+32,Zacatecas,Hombres,Adolescentes (10-19),125
+32,Zacatecas,Hombres,Adultos (36-59),227
+32,Zacatecas,Hombres,Adultos mayores (60+),34
+32,Zacatecas,Hombres,Infancias (0-9),9
+32,Zacatecas,Hombres,Jóvenes (20-35),363
+32,Zacatecas,Mujeres,Adolescentes (10-19),129
+32,Zacatecas,Mujeres,Adultos (36-59),43
+32,Zacatecas,Mujeres,Adultos mayores (60+),4
+32,Zacatecas,Mujeres,Infancias (0-9),14
+32,Zacatecas,Mujeres,Jóvenes (20-35),87

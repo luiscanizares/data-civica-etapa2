@@ -1,24 +1,94 @@
-use reqrnpdno::{extractora,parameters::Parametros};
+use reqrnpdno::{cliente, extractora, parameters, parameters::Parametros, utilidades};
+use std::error::Error;
 
-fn main () {
+fn main() -> Result<(), Box<dyn Error>> {
+    // =========================================================
+    // ETAPA 2 - PARTE A (Data Cívica / RNPDNO)
+    // Autor: Luis Cañizares
+    //
+    // Objetivo:
+    //  - Extraer datos del RNPDNO para el periodo:
+    //      2024-01-01 a 2025-01-01
+    //  - Filtrar por nacionalidad: "Mexicana" (id obtenido del catálogo)
+    //  - Generar 1 archivo JSON por entidad federativa en:
+    //      ./salida/data_civica_etapa2/estados/
+    //
+    // Nota:
+    //  - La desagregación final en 5 grupos de edad:
+    //      0–9, 10–19, 20–35, 36–59, 60+
+    //    se realiza posteriormente en R.
+    // =========================================================
 
-    // Aquí se define la ruta en donde se guardarán los datos. En este caso es un archivo de tipo JSON llamado datos.json
-    let rutam = "./datos.json".to_string();
+    // ---------------------------------------------------------
+    // 1) Crear carpeta de salida
+    // ---------------------------------------------------------
+    // Crea la carpeta dentro del repo:
+    let ruta_salida = utilidades::crear_directorio("./salida/", "data_civica_etapa2")?;
 
-    // Aquí creamos la estructura de los parámetros necesarios para realizar la petición. Esta estructura es la que se necesita modificar si quieres aplicar algún filtro. Si no quieres filtrar no es necesario modificar la estructura. 
-    let mut parametros = Parametros::new();
+    // ---------------------------------------------------------
+    // 2) Inicializar cliente HTTP
+    // ---------------------------------------------------------
+    // Consulta catálogos y realiza peticiones al RNPDNO.
+    let cli = cliente::cliente_nuevo()?;
 
-    // Aquí se modifican los valores de los parámetros para aplicar algunos filtros. 
-    // En este caso se coloca el valor "7" en el campo "id_estatus_victima" el cual corresponde a "PERSONAS DESAPARECIDAS Y NO LOCALIZADAS". 
-    // También cambiamos el parámetro "titulo" y colocamos el título. 
-    // Además usamos los parámetros "fecha_inicio" y "fecha_fin" para limitar la búsqueda a un rango de fechas.
-    parametros.id_estatus_victima = "7".to_string();
-    parametros.titulo = "PERSONAS DESAPARECIDAS Y NO LOCALIZADAS".to_string();
-    parametros.fecha_inicio = "2000-01-01".to_string();
-    parametros.fecha_fin = "2021-08-20".to_string();
+    // ---------------------------------------------------------
+    // 3) Obtener el ID de la nacionalidad "mexicana" desde el catálogo
+    // ---------------------------------------------------------
+    let nacionalidades = parameters::get_nacionalidades(&cli)?;
 
-    // Por último, utilizamos la función de alto nivel "extraer" para obtener nuestros datos.
-    extractora::extraer(&parametros, &rutam).unwrap();
+    // Filtra entradas
+    let candidatos: Vec<(String, String)> = nacionalidades
+        .iter()
+        .filter(|(nombre, _id)| nombre.to_uppercase().contains("MEXIC"))
+        .map(|(nombre, id)| (nombre.clone(), id.clone()))
+        .collect();
 
+    if candidatos.is_empty() {
+        return Err("No se encontró una nacionalidad que contenga 'MEXIC' en el catálogo".into());
+    }
+
+    // Si hay más de una coincidencia, avisamos y usamos la primera.
+    if candidatos.len() > 1 {
+        eprintln!("Encontré varias nacionalidades que contienen 'MEXIC':");
+        for (n, id) in &candidatos {
+            eprintln!("  - {n} => {id}");
+        }
+        eprintln!("Usaré la primera coincidencia.");
+    }
+
+    let id_mexicana = candidatos[0].1.clone();
+    println!(
+        "ID nacionalidad usada: {} (catálogo: {})",
+        id_mexicana, candidatos[0].0
+    );
+
+    // ---------------------------------------------------------
+    // 4) Definir parámetros del filtro
+    // ---------------------------------------------------------
+    let mut p = Parametros::new();
+
+    // Título (solo descriptivo para la salida)
+    p.titulo = "RNPDNO - Nacionalidad mexicana (2024-01-01 a 2025-01-01)".to_string();
+
+    // Rango de fechas solicitado
+    p.fecha_inicio = "2024-01-01".to_string();
+    p.fecha_fin = "2025-01-01".to_string();
+
+    // Filtro de nacionalidad
+    p.id_nacionalidad = id_mexicana;
+
+    // Importante:
+    // - NO se filtra por estatus de víctima.
+    // - extraer_por_estados() itera por entidades y crea:
+    //     <ruta_salida>/estados/<id>.json
+    println!("Ruta de salida: {ruta_salida}");
+    println!("Extrayendo datos por estados (esto puede tardar unos minutos)...");
+
+    // ---------------------------------------------------------
+    // 5) Ejecutar extracción por estados
+    // ---------------------------------------------------------
+    extractora::extraer_por_estados(&p, &ruta_salida)?;
+
+    println!("Listo. Revisa: {ruta_salida}/estados/");
+    Ok(())
 }
-
