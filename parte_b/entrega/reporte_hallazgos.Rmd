@@ -1,0 +1,383 @@
+---
+title: "EDR 2024 — Tres hallazgos sobre presuntos homicidios"
+author: "Luis Cañizares"
+date: "2025-12-14"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+## Contexto y fuente
+
+Este documento presenta **tres hallazgos** derivados de un análisis exploratorio de los **microdatos EDR 2024 (INEGI)**, enfocado en **presuntos homicidios** (CIE-10: X85–Y09 y Y87.1).  
+Cada hallazgo se acompaña de **una gráfica** y **un párrafo interpretativo**.
+
+---
+
+```{r packages, include=FALSE}
+# ============================================================
+# 0) Paquetes (auto-instalación)
+# ============================================================
+pkgs <- c(
+  "dplyr","stringr","readr","tibble","fs","purrr",
+  "ggplot2","scales","knitr","rstudioapi"
+)
+new  <- pkgs[!pkgs %in% rownames(installed.packages())]
+if (length(new) > 0) install.packages(new)
+invisible(lapply(pkgs, library, character.only = TRUE))
+```
+
+```{r paths, include=FALSE}
+# ============================================================
+# 1) Rutas (portables)
+# ============================================================
+# IMPORTANTE:
+# - Guarda este Rmd como: parte_b/entrega/reporte_hallazgos.Rmd
+# - Renderiza/knit desde la RAÍZ del repo (reqrnpdno)
+
+root <- fs::path_abs(fs::path_dir(rstudioapi::getActiveDocumentContext()$path))
+# Si el Rmd está en parte_b/entrega, subimos 2 niveles hasta la raíz del repo:
+root <- fs::path_norm(fs::path(root, "..", ".."))
+
+path_clean <- fs::path(root, "parte_b", "data_clean")
+path_fig   <- fs::path(root, "parte_b", "figuras")
+path_out   <- fs::path(root, "parte_b", "entrega")
+
+fs::dir_create(path_fig)
+fs::dir_create(path_out)
+
+f_rds   <- fs::path(path_clean, "homicidios_2024_limpio.rds")
+
+f1      <- fs::path(path_fig, "fig1_sexo_grupo_edad.png")
+f2      <- fs::path(path_fig, "fig2_top_estados.png")
+f3      <- fs::path(path_fig, "fig3_indig_o_migr.png")
+txt_par <- fs::path(path_out, "parrafos_hallazgos.txt")
+
+# Helpers para párrafos
+read_parrafos <- function(fp) {
+  if (!file.exists(fp)) return(character(0))
+  p <- readLines(fp, warn = FALSE)
+  p[nzchar(p)]
+}
+
+get_parrafo <- function(i, parrafos_vec) {
+  if (length(parrafos_vec) == 0) {
+    return("No se encontró 'parrafos_hallazgos.txt'. Este reporte lo genera automáticamente al crear las figuras.")
+  }
+  if (length(parrafos_vec) < i) {
+    return("No se encontró el párrafo esperado. Revisa 'parrafos_hallazgos.txt'.")
+  }
+  parrafos_vec[i]
+}
+```
+
+```{r load_data, include=FALSE}
+# ============================================================
+# 2) Cargar dataset limpio (debe existir)
+# ============================================================
+if (!file.exists(f_rds)) {
+  stop(
+    "No existe el archivo limpio: ", f_rds, "\n\n",
+    "Primero genera el .rds corriendo:\n",
+    "  source('parte_b/scripts/01_leer_limpiar_homicidios.R')\n"
+  )
+}
+
+df <- readRDS(f_rds)
+
+# Validación mínima
+need_cols <- c("sexo","grupo_edad")
+if (!all(need_cols %in% names(df))) {
+  stop("Faltan columnas: ", paste(setdiff(need_cols, names(df)), collapse=", "))
+}
+
+# Orden fijo para el reporte
+grupo_levels <- c(
+  "Infancias (0-9)",
+  "Adolescentes (10-19)",
+  "Jóvenes (20-35)",
+  "Adultos (36-59)",
+  "Adultos mayores (60+)"
+)
+
+df <- df %>%
+  dplyr::mutate(
+    sexo = as.character(sexo),
+    grupo_edad = factor(grupo_edad, levels = grupo_levels, ordered = TRUE)
+  )
+```
+
+```{r helpers_detect, include=FALSE}
+# ============================================================
+# 3) Helpers: detectar columnas opcionales (entidad / lengua / país)
+# ============================================================
+find_col_regex <- function(df, patterns) {
+  nm <- names(df)
+  for (pat in patterns) {
+    hit <- nm[stringr::str_detect(nm, stringr::regex(pat, ignore_case = TRUE))]
+    if (length(hit) > 0) return(hit[1])
+  }
+  NA_character_
+}
+
+# Catálogo simple 1..32 para etiquetas (si la entidad viene como id)
+mx_estados <- tibble::tibble(
+  entidad_id = 1:32,
+  entidad = c(
+    "Aguascalientes","Baja California","Baja California Sur","Campeche","Coahuila","Colima",
+    "Chiapas","Chihuahua","Ciudad de México","Durango","Guanajuato","Guerrero","Hidalgo",
+    "Jalisco","Estado de México","Michoacán","Morelos","Nayarit","Nuevo León","Oaxaca",
+    "Puebla","Querétaro","Quintana Roo","San Luis Potosí","Sinaloa","Sonora","Tabasco",
+    "Tamaulipas","Tlaxcala","Veracruz","Yucatán","Zacatecas"
+  )
+)
+```
+
+```{r make_figures_and_paragraphs, include=FALSE}
+# ============================================================
+# 4) Generar figuras + párrafos (automático)
+# ============================================================
+
+# ---------------------------
+# FIGURA 1: Sexo x Grupo de edad
+# ---------------------------
+sum1 <- df %>% dplyr::count(sexo, grupo_edad, name="n")
+
+tot <- nrow(df)
+n_h_joven <- sum(df$sexo == "Hombres" & df$grupo_edad == "Jóvenes (20-35)", na.rm = TRUE)
+pct_h_joven <- n_h_joven / tot
+
+p1 <- ggplot2::ggplot(sum1, ggplot2::aes(x = grupo_edad, y = n, fill = sexo)) +
+  ggplot2::geom_col(position = ggplot2::position_dodge(width = 0.8), width = 0.7) +
+  ggplot2::scale_y_continuous(labels = scales::comma) +
+  ggplot2::labs(
+    title = "Presuntos homicidios 2024: distribución por sexo y grupo de edad",
+    x = NULL, y = "Número de víctimas", fill = NULL
+  ) +
+  ggplot2::theme_minimal(base_size = 12) +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 20, hjust = 1))
+
+ggplot2::ggsave(f1, p1, width = 10, height = 5.5, dpi = 300)
+
+parrafo1 <- paste0(
+  "Hallazgo 1 — La violencia homicida se concentra en hombres jóvenes. ",
+  "En 2024, los hombres de 20 a 35 años representan ",
+  scales::percent(pct_h_joven, accuracy = 0.1),
+  " de las víctimas registradas como presuntos homicidios (con edad válida). ",
+  "Esto sugiere que la prevención y reducción de homicidios requiere estrategias focalizadas en juventudes masculinas."
+)
+
+# ---------------------------
+# FIGURA 2: Top 10 entidades (si detecta variable territorial)
+# ---------------------------
+col_ent <- find_col_regex(df, c("^ENT_OCU", "^ENT_OCURR", "^ENT_RES", "^ENT_REG", "^ENTID", "ENTIDAD"))
+parrafo2 <- NULL
+
+if (!is.na(col_ent)) {
+  tmp2 <- df %>%
+    dplyr::mutate(entidad_id = suppressWarnings(as.integer(.data[[col_ent]]))) %>%
+    dplyr::filter(!is.na(entidad_id), entidad_id >= 1, entidad_id <= 32) %>%
+    dplyr::left_join(mx_estados, by="entidad_id") %>%
+    dplyr::count(entidad, sexo, name="n")
+
+  if (nrow(tmp2) == 0) col_ent <- NA_character_
+}
+
+if (is.na(col_ent)) {
+  # Fallback: si no hay territorial, ponemos una figura alternativa (edad x sexo)
+  tmp2b <- df %>% dplyr::count(grupo_edad, sexo, name="n")
+
+  p2 <- ggplot2::ggplot(tmp2b, ggplot2::aes(x = grupo_edad, y = n, fill = sexo)) +
+    ggplot2::geom_col(position = ggplot2::position_dodge(width = 0.8), width = 0.7) +
+    ggplot2::scale_y_continuous(labels = scales::comma) +
+    ggplot2::labs(
+      title = "Figura 2 (fallback): sin variable territorial detectada",
+      x = NULL, y = "Número de víctimas", fill = NULL
+    ) +
+    ggplot2::theme_minimal(base_size = 12)
+
+  ggplot2::ggsave(f2, p2, width = 10, height = 5.5, dpi = 300)
+
+  parrafo2 <- paste0(
+    "Hallazgo 2 — Nota metodológica: no se detectó una variable territorial clara (ENT_OCURR/ENT_RES/ENT_REG). ",
+    "Se muestra una figura alternativa. Si se identifica el nombre exacto de la variable territorial, este hallazgo puede reemplazarse por un Top 10 de entidades."
+  )
+} else {
+  top_total <- df %>%
+    dplyr::mutate(entidad_id = suppressWarnings(as.integer(.data[[col_ent]]))) %>%
+    dplyr::filter(!is.na(entidad_id), entidad_id >= 1, entidad_id <= 32) %>%
+    dplyr::left_join(mx_estados, by="entidad_id") %>%
+    dplyr::count(entidad, name="n") %>%
+    dplyr::arrange(dplyr::desc(n))
+
+  top1 <- top_total$entidad[1]
+  top1_n <- top_total$n[1]
+  top1_pct <- top1_n / sum(top_total$n)
+
+  tmp2_top <- df %>%
+    dplyr::mutate(entidad_id = suppressWarnings(as.integer(.data[[col_ent]]))) %>%
+    dplyr::filter(!is.na(entidad_id), entidad_id >= 1, entidad_id <= 32) %>%
+    dplyr::left_join(mx_estados, by="entidad_id") %>%
+    dplyr::count(entidad, sexo, name="n") %>%
+    dplyr::group_by(sexo) %>%
+    dplyr::mutate(rank = dplyr::dense_rank(dplyr::desc(n))) %>%
+    dplyr::filter(rank <= 10) %>%
+    dplyr::ungroup()
+
+  p2 <- ggplot2::ggplot(tmp2_top, ggplot2::aes(x = reorder(entidad, n), y = n, fill = sexo)) +
+    ggplot2::geom_col(position = ggplot2::position_dodge(width = 0.8), width = 0.7) +
+    ggplot2::coord_flip() +
+    ggplot2::scale_y_continuous(labels = scales::comma) +
+    ggplot2::labs(
+      title = "Top 10 entidades por presuntos homicidios en 2024",
+      x = NULL, y = "Número de víctimas", fill = NULL
+    ) +
+    ggplot2::theme_minimal(base_size = 12)
+
+  ggplot2::ggsave(f2, p2, width = 10, height = 6, dpi = 300)
+
+  parrafo2 <- paste0(
+    "Hallazgo 2 — La violencia homicida se concentra territorialmente. ",
+    "La entidad con más presuntos homicidios en 2024 es ", top1, " (", scales::comma(top1_n), "), ",
+    "equivalente a ", scales::percent(top1_pct, accuracy = 0.1), " del total."
+  )
+}
+
+# ---------------------------
+# FIGURA 3: Enfoque indígena o migrante (si detecta variable)
+# ---------------------------
+col_lengua_bin <- find_col_regex(df, c("HABLA.*LENG", "LENGUA.*HABLA", "HLENG"))
+col_lengua_cod <- find_col_regex(df, c("^LENGUA$", "LENGUA_"))
+col_pais_nac   <- find_col_regex(df, c("PAIS.*NAC", "NACIO", "PAISNAC"))
+
+tmp3 <- NULL
+tipo3 <- NULL
+
+if (!is.na(col_lengua_bin)) {
+  tmp3 <- df %>%
+    dplyr::mutate(grupo = dplyr::case_when(
+      .data[[col_lengua_bin]] %in% c(1,"1","SI","SÍ","Si","Sí") ~ "Habla lengua indígena",
+      .data[[col_lengua_bin]] %in% c(2,"2","NO","No") ~ "No habla lengua indígena",
+      TRUE ~ NA_character_
+    )) %>%
+    dplyr::filter(!is.na(grupo)) %>%
+    dplyr::count(sexo, grupo, name="n") %>%
+    dplyr::group_by(sexo) %>%
+    dplyr::mutate(pct = n/sum(n)) %>%
+    dplyr::ungroup()
+  tipo3 <- "lengua"
+}
+
+if (is.null(tmp3) && !is.na(col_lengua_cod)) {
+  tmp3 <- df %>%
+    dplyr::mutate(
+      lengua_cod = suppressWarnings(as.integer(.data[[col_lengua_cod]])),
+      grupo = dplyr::case_when(
+        is.na(lengua_cod) ~ NA_character_,
+        lengua_cod %in% c(998,999,0) ~ "No lengua/No especificado",
+        TRUE ~ "Lengua registrada"
+      )
+    ) %>%
+    dplyr::filter(!is.na(grupo)) %>%
+    dplyr::count(sexo, grupo, name="n") %>%
+    dplyr::group_by(sexo) %>%
+    dplyr::mutate(pct = n/sum(n)) %>%
+    dplyr::ungroup()
+  tipo3 <- "lengua_cod"
+}
+
+if (is.null(tmp3) && !is.na(col_pais_nac)) {
+  tmp3 <- df %>%
+    dplyr::mutate(
+      pais_nac = suppressWarnings(as.integer(.data[[col_pais_nac]])),
+      grupo = dplyr::case_when(
+        is.na(pais_nac) ~ NA_character_,
+        pais_nac %in% c(484, 1) ~ "Nacido en México",
+        TRUE ~ "Nacido en el extranjero"
+      )
+    ) %>%
+    dplyr::filter(!is.na(grupo)) %>%
+    dplyr::count(sexo, grupo, name="n") %>%
+    dplyr::group_by(sexo) %>%
+    dplyr::mutate(pct = n/sum(n)) %>%
+    dplyr::ungroup()
+  tipo3 <- "migrante"
+}
+
+if (is.null(tmp3)) {
+  tmp3 <- df %>% dplyr::count(sexo, name="n") %>% dplyr::mutate(grupo = sexo, pct = n/sum(n))
+  tipo3 <- "fallback"
+}
+
+p3 <- ggplot2::ggplot(tmp3, ggplot2::aes(x = grupo, y = pct, fill = sexo)) +
+  ggplot2::geom_col(position = ggplot2::position_dodge(width = 0.8), width = 0.7) +
+  ggplot2::scale_y_continuous(labels = scales::percent_format(accuracy = 0.1)) +
+  ggplot2::labs(
+    title = "Presuntos homicidios 2024: población indígena o migrante (según variable disponible)",
+    x = NULL, y = "Porcentaje dentro de cada sexo", fill = NULL
+  ) +
+  ggplot2::theme_minimal(base_size = 12) +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 15, hjust = 1))
+
+ggplot2::ggsave(f3, p3, width = 10, height = 5.5, dpi = 300)
+
+parrafo3 <- if (tipo3 %in% c("lengua","lengua_cod")) {
+  "Hallazgo 3 — Desagregar por pertenencia indígena ayuda a visibilizar desigualdades. Según la variable disponible, se observan diferencias por sexo en el indicador; esta desagregación es clave para orientar respuestas culturalmente pertinentes."
+} else if (tipo3 == "migrante") {
+  "Hallazgo 3 — Migración y vulnerabilidad. La distribución por país de nacimiento (según variable disponible) ayuda a no invisibilizar riesgos específicos en población migrante."
+} else {
+  "Hallazgo 3 — Nota metodológica: no se detectaron variables claras de lengua indígena o país de nacimiento. Se presenta una figura alternativa; si se identifican los nombres exactos, este hallazgo puede reemplazarse."
+}
+
+# Guardar párrafos y cargarlos para usarlos inline
+writeLines(c(parrafo1, "", parrafo2, "", parrafo3), txt_par)
+parrafos_vec <- read_parrafos(txt_par)
+```
+
+## Hallazgo 1 — Distribución por sexo y grupo de edad
+
+```{r show_fig1, out.width="100%"}
+if (file.exists(f1)) knitr::include_graphics(f1) else cat("No se encontró:", f1)
+```
+
+**Interpretación:**  
+`r get_parrafo(1, parrafos_vec)`
+
+---
+
+## Hallazgo 2 — Concentración territorial (Top 10 entidades)
+
+```{r show_fig2, out.width="100%"}
+if (file.exists(f2)) knitr::include_graphics(f2) else cat("No se encontró:", f2)
+```
+
+**Interpretación:**  
+`r get_parrafo(2, parrafos_vec)`
+
+---
+
+## Hallazgo 3 — Enfoque en población indígena o migrante (según variable disponible)
+
+```{r show_fig3, out.width="100%"}
+if (file.exists(f3)) knitr::include_graphics(f3) else cat("No se encontró:", f3)
+```
+
+**Interpretación:**  
+`r get_parrafo(3, parrafos_vec)`
+
+---
+
+## Reproducibilidad
+
+- Dataset limpio requerido: `parte_b/data_clean/homicidios_2024_limpio.rds`
+- Este reporte genera automáticamente:
+  - Figuras en `parte_b/figuras/`
+  - Párrafos en `parte_b/entrega/parrafos_hallazgos.txt`
+
+Para renderizar desde R (en la raíz del repo):
+
+```{r render_hint, eval=FALSE}
+rmarkdown::render("parte_b/entrega/reporte_hallazgos.Rmd")
+```
