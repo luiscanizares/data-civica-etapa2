@@ -20,3 +20,11 @@ salida/circunstancias/
 # (Opcional) si se generan otros temporales
 *.log
 
+# Parte B (NO subir microdatos ni outputs pesados)
+parte_b/data_raw/
+parte_b/data_processed/
+
+# Parte B - microdatos (no subir)
+parte_b/data_raw/
+parte_b/data_clean/
+
